@@ -67,8 +67,8 @@ const aliasToken = {
 const validatedAliasToken = await validate(schema.AliasToken, aliasToken)
 
 // or validate any tokens
-const validatedDesignTokens = await validate(schema.DesignTokens, colorToken)
-const validatedDesignTokens = await validate(schema.DesignTokens, aliasToken)
+const validatedDesignToken = await validate(schema.DesignToken, colorToken)
+const validatedDesignToken = await validate(schema.DesignToken, aliasToken)
 ```
 
 ## License

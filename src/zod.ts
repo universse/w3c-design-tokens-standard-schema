@@ -349,7 +349,7 @@ export function createSchema<
 		$value: TypographyValue,
 	})
 
-	const DesignTokens = z.union([
+	const DesignToken = z.union([
 		ColorToken,
 		DimensionToken,
 		FontFamilyToken,
@@ -367,7 +367,7 @@ export function createSchema<
 	])
 
 	const NestedDesignTokens: z.ZodType<any> = z.lazy(() =>
-		z.union([DesignTokens, z.record(NestedDesignTokens)]),
+		z.union([DesignToken, z.record(NestedDesignTokens)]),
 	)
 
 	const DesignTokenTree = z.record(NestedDesignTokens)
@@ -387,7 +387,7 @@ export function createSchema<
 		ShadowToken,
 		GradientToken,
 		TypographyToken,
-		DesignTokens,
+		DesignToken,
 		DesignTokenTree,
 	}
 }
