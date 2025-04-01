@@ -1,0 +1,65 @@
+{
+	"name": "w3c-design-tokens-standard-schema",
+	"version": "0.0.1",
+	"description": "Standard Schema for W3C Design Tokens",
+	"keywords": [
+		"design tokens",
+		"w3c design tokens",
+		"standard schema",
+		"zod",
+		"arktype",
+		"valibot"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/universse/w3c-design-tokens-standard-schema.git"
+	},
+	"license": "MIT",
+	"author": "Si Phuoc <phuoc317049@gmail.com>",
+	"sideEffects": false,
+	"type": "module",
+	"exports": {
+		"./*": {
+			"import": "./src/*.ts"
+		}
+	},
+	"files": ["src"],
+	"scripts": {
+		"test": "vitest --reporter=basic --disable-console-intercept"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@standard-schema/spec": "1.0.0",
+		"arktype": "2.1.15",
+		"prettier": "3.5.3",
+		"tsx": "4.19.3",
+		"typescript": "5.8.2",
+		"valibot": "1.0.0",
+		"vitest": "2.1.8",
+		"zod": "3.24.2"
+	},
+	"peerDependencies": {
+		"@standard-schema/spec": "1.0.0",
+		"arktype": "2.1.15",
+		"valibot": "1.0.0",
+		"zod": "3.24.2"
+	},
+	"peerDependenciesMeta": {
+		"@standard-schema/spec": {
+			"optional": true
+		},
+		"arktype": {
+			"optional": true
+		},
+		"valibot": {
+			"optional": true
+		},
+		"zod": {
+			"optional": true
+		}
+	},
+	"packageManager": "pnpm@10.7.0",
+	"publishConfig": {
+		"access": "public"
+	}
+}
