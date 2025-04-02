@@ -263,7 +263,7 @@ export function createSchema<
 				$deprecated: z.union([z.string(), z.boolean()]).optional(),
 			})
 
-	const AliasToken = z.object({
+	const AliasToken = BaseToken.extend({
 		$type: z
 			.union([
 				ColorType,
