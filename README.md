@@ -36,7 +36,7 @@ async function validate<T extends StandardSchemaV1>(
 
 const schema = createSchema()
 
-// or with $extensions
+// or with schema for $extensions
 const schema = createSchema({
   extensionSchema: z.object({
     "org.example.tool-a": z.number(),
@@ -60,7 +60,7 @@ const validatedColorToken = await validate(schema.ColorToken, colorToken)
 
 
 const aliasToken = {
-  $type: 'alias',
+  $type: 'color',
   $value: '{color.black}',
 }
 
