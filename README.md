@@ -38,11 +38,11 @@ const schema = createSchema()
 
 // or with schema for $extensions
 const schema = createSchema({
-  extensionSchema: z.object({
-    "org.example.tool-a": z.number(),
+  extensionsSchema: z.object({
+    "org.example.tool-a": z.number().optional(),
     "org.example.tool-b": z.object({
-      "turn-up-to-11": z.boolean(),
-    }),
+      "turn-up-to-11": z.boolean().optional(),
+    }).optional(),
   }).optional(),
 })
 

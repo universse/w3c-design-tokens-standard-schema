@@ -265,11 +265,11 @@ const TypographyType = z.literal('typography')
 
 export function createSchema<
 	Extensions extends z.AnyZodObject | z.ZodOptional<z.AnyZodObject>,
->({ extensionSchema }: { extensionSchema?: Extensions } = {}) {
-	const BaseToken = extensionSchema
+>({ extensionsSchema }: { extensionsSchema?: Extensions } = {}) {
+	const BaseToken = extensionsSchema
 		? z.object({
 				$description: z.string().optional(),
-				$extensions: extensionSchema,
+				$extensions: extensionsSchema,
 				$deprecated: z.union([z.string(), z.boolean()]).optional(),
 			})
 		: z.object({
