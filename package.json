@@ -1,6 +1,6 @@
 {
 	"name": "w3c-design-tokens-standard-schema",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "Standard Schema for W3C Design Tokens",
 	"keywords": [
 		"design tokens",
