@@ -11,124 +11,138 @@ const NumberValue = z.number()
 const BooleanValue = z.boolean()
 
 const BaseColorValue = z.object({
-	alpha: z.number().gte(0).lte(1).optional(),
+	alpha: NumberValue.gte(0).lte(1).optional(),
 	hex: z
 		.string()
 		.regex(/^#[0-9a-f]{6}$/i)
 		.optional(),
 })
 
+const NoneKeyword = z.literal('none')
+
 const ColorSpaceValue = z.discriminatedUnion('colorSpace', [
 	z.object({
 		colorSpace: z.literal('srgb'),
 		components: z.tuple([
-			z.number().gte(0).lte(1),
-			z.number().gte(0).lte(1),
-			z.number().gte(0).lte(1),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
 		]),
 	}),
 	z.object({
 		colorSpace: z.literal('srgb-linear'),
 		components: z.tuple([
-			z.number().gte(0).lte(1),
-			z.number().gte(0).lte(1),
-			z.number().gte(0).lte(1),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
 		]),
 	}),
 	z.object({
 		colorSpace: z.literal('hsl'),
 		components: z.tuple([
-			z.number().gte(0).lt(360),
-			z.number().gte(0).lte(100),
-			z.number().gte(0).lte(100),
+			z.union([NumberValue.gte(0).lt(360), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(100), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(100), NoneKeyword]),
 		]),
 	}),
 	z.object({
 		colorSpace: z.literal('hwb'),
 		components: z.tuple([
-			z.number().gte(0).lt(360),
-			z.number().gte(0).lte(100),
-			z.number().gte(0).lte(100),
+			z.union([NumberValue.gte(0).lt(360), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(100), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(100), NoneKeyword]),
 		]),
 	}),
 	z.object({
 		colorSpace: z.literal('lab'),
 		components: z.tuple([
-			z.number().gte(0).lte(100),
-			z.number().gte(Number.NEGATIVE_INFINITY).lte(Number.POSITIVE_INFINITY),
-			z.number().gte(Number.NEGATIVE_INFINITY).lte(Number.POSITIVE_INFINITY),
+			z.union([NumberValue.gte(0).lte(100), NoneKeyword]),
+			z.union([
+				NumberValue.gte(Number.NEGATIVE_INFINITY).lte(Number.POSITIVE_INFINITY),
+				NoneKeyword,
+			]),
+			z.union([
+				NumberValue.gte(Number.NEGATIVE_INFINITY).lte(Number.POSITIVE_INFINITY),
+				NoneKeyword,
+			]),
 		]),
 	}),
 	z.object({
 		colorSpace: z.literal('lch'),
 		components: z.tuple([
-			z.number().gte(0).lte(100),
-			z.number().gte(0).lte(Number.POSITIVE_INFINITY),
-			z.number().gte(0).lt(360),
+			z.union([NumberValue.gte(0).lte(100), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(Number.POSITIVE_INFINITY), NoneKeyword]),
+			z.union([NumberValue.gte(0).lt(360), NoneKeyword]),
 		]),
 	}),
 	z.object({
 		colorSpace: z.literal('oklab'),
 		components: z.tuple([
-			z.number().gte(0).lte(1),
-			z.number().gte(Number.NEGATIVE_INFINITY).lte(Number.POSITIVE_INFINITY),
-			z.number().gte(Number.NEGATIVE_INFINITY).lte(Number.POSITIVE_INFINITY),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([
+				NumberValue.gte(Number.NEGATIVE_INFINITY).lte(Number.POSITIVE_INFINITY),
+				NoneKeyword,
+			]),
+			z.union([
+				NumberValue.gte(Number.NEGATIVE_INFINITY).lte(Number.POSITIVE_INFINITY),
+				NoneKeyword,
+			]),
 		]),
 	}),
 	z.object({
 		colorSpace: z.literal('oklch'),
 		components: z.tuple([
-			z.number().gte(0).lte(1),
-			z.number().gte(0).lte(Number.POSITIVE_INFINITY),
-			z.number().gte(0).lt(360),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(Number.POSITIVE_INFINITY), NoneKeyword]),
+			z.union([NumberValue.gte(0).lt(360), NoneKeyword]),
 		]),
 	}),
 	z.object({
 		colorSpace: z.literal('display-p3'),
 		components: z.tuple([
-			z.number().gte(0).lte(1),
-			z.number().gte(0).lte(1),
-			z.number().gte(0).lte(1),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
 		]),
 	}),
 	z.object({
 		colorSpace: z.literal('a98-rgb'),
 		components: z.tuple([
-			z.number().gte(0).lte(1),
-			z.number().gte(0).lte(1),
-			z.number().gte(0).lte(1),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
 		]),
 	}),
 	z.object({
 		colorSpace: z.literal('prophoto-rgb'),
 		components: z.tuple([
-			z.number().gte(0).lte(1),
-			z.number().gte(0).lte(1),
-			z.number().gte(0).lte(1),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
 		]),
 	}),
 	z.object({
 		colorSpace: z.literal('rec2020'),
 		components: z.tuple([
-			z.number().gte(0).lte(1),
-			z.number().gte(0).lte(1),
-			z.number().gte(0).lte(1),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
 		]),
 	}),
 	z.object({
 		colorSpace: z.literal('xyz-d65'),
 		components: z.tuple([
-			z.number().gte(0).lte(1),
-			z.number().gte(0).lte(1),
-			z.number().gte(0).lte(1),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
 		]),
 	}),
 	z.object({
 		colorSpace: z.literal('xyz-d50'),
 		components: z.tuple([
-			z.number().gte(0).lte(1),
-			z.number().gte(0).lte(1),
-			z.number().gte(0).lte(1),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
 		]),
 	}),
 ])
