@@ -20,8 +20,8 @@ const BaseColorValue = z.object({
 
 const NoneKeyword = z.literal('none')
 
-const ColorSpaceValue = z.discriminatedUnion('colorSpace', [
-	z.object({
+const ColorValue = z.discriminatedUnion('colorSpace', [
+	BaseColorValue.extend({
 		colorSpace: z.literal('srgb'),
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
@@ -29,7 +29,7 @@ const ColorSpaceValue = z.discriminatedUnion('colorSpace', [
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
 		]),
 	}),
-	z.object({
+	BaseColorValue.extend({
 		colorSpace: z.literal('srgb-linear'),
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
@@ -37,7 +37,7 @@ const ColorSpaceValue = z.discriminatedUnion('colorSpace', [
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
 		]),
 	}),
-	z.object({
+	BaseColorValue.extend({
 		colorSpace: z.literal('hsl'),
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lt(360), NoneKeyword]),
@@ -45,7 +45,7 @@ const ColorSpaceValue = z.discriminatedUnion('colorSpace', [
 			z.union([NumberValue.gte(0).lte(100), NoneKeyword]),
 		]),
 	}),
-	z.object({
+	BaseColorValue.extend({
 		colorSpace: z.literal('hwb'),
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lt(360), NoneKeyword]),
@@ -53,7 +53,7 @@ const ColorSpaceValue = z.discriminatedUnion('colorSpace', [
 			z.union([NumberValue.gte(0).lte(100), NoneKeyword]),
 		]),
 	}),
-	z.object({
+	BaseColorValue.extend({
 		colorSpace: z.literal('lab'),
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lte(100), NoneKeyword]),
@@ -67,7 +67,7 @@ const ColorSpaceValue = z.discriminatedUnion('colorSpace', [
 			]),
 		]),
 	}),
-	z.object({
+	BaseColorValue.extend({
 		colorSpace: z.literal('lch'),
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lte(100), NoneKeyword]),
@@ -75,7 +75,7 @@ const ColorSpaceValue = z.discriminatedUnion('colorSpace', [
 			z.union([NumberValue.gte(0).lt(360), NoneKeyword]),
 		]),
 	}),
-	z.object({
+	BaseColorValue.extend({
 		colorSpace: z.literal('oklab'),
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
@@ -89,7 +89,7 @@ const ColorSpaceValue = z.discriminatedUnion('colorSpace', [
 			]),
 		]),
 	}),
-	z.object({
+	BaseColorValue.extend({
 		colorSpace: z.literal('oklch'),
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
@@ -97,7 +97,7 @@ const ColorSpaceValue = z.discriminatedUnion('colorSpace', [
 			z.union([NumberValue.gte(0).lt(360), NoneKeyword]),
 		]),
 	}),
-	z.object({
+	BaseColorValue.extend({
 		colorSpace: z.literal('display-p3'),
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
@@ -105,7 +105,7 @@ const ColorSpaceValue = z.discriminatedUnion('colorSpace', [
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
 		]),
 	}),
-	z.object({
+	BaseColorValue.extend({
 		colorSpace: z.literal('a98-rgb'),
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
@@ -113,7 +113,7 @@ const ColorSpaceValue = z.discriminatedUnion('colorSpace', [
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
 		]),
 	}),
-	z.object({
+	BaseColorValue.extend({
 		colorSpace: z.literal('prophoto-rgb'),
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
@@ -121,7 +121,7 @@ const ColorSpaceValue = z.discriminatedUnion('colorSpace', [
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
 		]),
 	}),
-	z.object({
+	BaseColorValue.extend({
 		colorSpace: z.literal('rec2020'),
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
@@ -129,7 +129,7 @@ const ColorSpaceValue = z.discriminatedUnion('colorSpace', [
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
 		]),
 	}),
-	z.object({
+	BaseColorValue.extend({
 		colorSpace: z.literal('xyz-d65'),
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
@@ -137,7 +137,7 @@ const ColorSpaceValue = z.discriminatedUnion('colorSpace', [
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
 		]),
 	}),
-	z.object({
+	BaseColorValue.extend({
 		colorSpace: z.literal('xyz-d50'),
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
@@ -146,8 +146,6 @@ const ColorSpaceValue = z.discriminatedUnion('colorSpace', [
 		]),
 	}),
 ])
-
-const ColorValue = z.intersection(ColorSpaceValue, BaseColorValue)
 
 const DimensionValue = z.object({
 	value: NumberValue,
