@@ -25,18 +25,20 @@
 	},
 	"files": ["src"],
 	"scripts": {
-		"test": "vitest --reporter=basic --disable-console-intercept"
+		"test": "vitest --reporter=basic --disable-console-intercept",
+		"release": "release publish"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
+		"@ossjs/release": "^0.8.1",
 		"@standard-schema/spec": "1.0.0",
-		"arktype": "2.1.15",
+		"arktype": "2.1.20",
 		"prettier": "3.5.3",
-		"tsx": "4.19.3",
-		"typescript": "5.8.2",
+		"tsx": "4.19.4",
+		"typescript": "5.8.3",
 		"valibot": "1.0.0",
-		"vitest": "2.1.8",
-		"zod": "3.24.2"
+		"vitest": "3.1.2",
+		"zod": "3.24.3"
 	},
 	"peerDependencies": {
 		"@standard-schema/spec": "1.0.0",
