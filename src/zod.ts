@@ -1,10 +1,8 @@
-import { z } from 'zod'
+import { z } from 'zod/v4'
 
 // Values
 
-const AliasValue = z.custom<`{${string}}`>((val) =>
-	/^\{.*\}$/.test(val as string),
-)
+const AliasValue = z.templateLiteral(['{', z.string(), '}'])
 
 const NumberValue = z.number()
 
@@ -58,11 +56,11 @@ const ColorValue = z.discriminatedUnion('colorSpace', [
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lte(100), NoneKeyword]),
 			z.union([
-				NumberValue.gte(Number.NEGATIVE_INFINITY).lte(Number.POSITIVE_INFINITY),
+				NumberValue.gte(Number.MIN_VALUE).lte(Number.MAX_VALUE),
 				NoneKeyword,
 			]),
 			z.union([
-				NumberValue.gte(Number.NEGATIVE_INFINITY).lte(Number.POSITIVE_INFINITY),
+				NumberValue.gte(Number.MIN_VALUE).lte(Number.MAX_VALUE),
 				NoneKeyword,
 			]),
 		]),
@@ -71,7 +69,7 @@ const ColorValue = z.discriminatedUnion('colorSpace', [
 		colorSpace: z.literal('lch'),
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lte(100), NoneKeyword]),
-			z.union([NumberValue.gte(0).lte(Number.POSITIVE_INFINITY), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(Number.MAX_VALUE), NoneKeyword]),
 			z.union([NumberValue.gte(0).lt(360), NoneKeyword]),
 		]),
 	}),
@@ -80,11 +78,11 @@ const ColorValue = z.discriminatedUnion('colorSpace', [
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
 			z.union([
-				NumberValue.gte(Number.NEGATIVE_INFINITY).lte(Number.POSITIVE_INFINITY),
+				NumberValue.gte(Number.MIN_VALUE).lte(Number.MAX_VALUE),
 				NoneKeyword,
 			]),
 			z.union([
-				NumberValue.gte(Number.NEGATIVE_INFINITY).lte(Number.POSITIVE_INFINITY),
+				NumberValue.gte(Number.MIN_VALUE).lte(Number.MAX_VALUE),
 				NoneKeyword,
 			]),
 		]),
@@ -93,7 +91,7 @@ const ColorValue = z.discriminatedUnion('colorSpace', [
 		colorSpace: z.literal('oklch'),
 		components: z.tuple([
 			z.union([NumberValue.gte(0).lte(1), NoneKeyword]),
-			z.union([NumberValue.gte(0).lte(Number.POSITIVE_INFINITY), NoneKeyword]),
+			z.union([NumberValue.gte(0).lte(Number.MAX_VALUE), NoneKeyword]),
 			z.union([NumberValue.gte(0).lt(360), NoneKeyword]),
 		]),
 	}),
@@ -261,9 +259,9 @@ const ShadowType = z.literal('shadow')
 const GradientType = z.literal('gradient')
 const TypographyType = z.literal('typography')
 
-export function createSchema<
-	Extensions extends z.AnyZodObject | z.ZodOptional<z.AnyZodObject>,
->({ extensionsSchema }: { extensionsSchema?: Extensions } = {}) {
+export function createSchema({
+	extensionsSchema,
+}: { extensionsSchema?: z.ZodObject | z.ZodOptional<z.ZodObject> } = {}) {
 	const BaseToken = extensionsSchema
 		? z.object({
 				$description: z.string().optional(),
@@ -378,11 +376,11 @@ export function createSchema<
 		AliasToken,
 	])
 
-	const NestedDesignTokens: z.ZodType<any> = z.lazy(() =>
-		z.union([DesignToken, z.record(NestedDesignTokens)]),
+	const NestedDesignTokens: z.ZodType = z.lazy(() =>
+		z.union([DesignToken, z.record(z.string(), NestedDesignTokens)]),
 	)
 
-	const DesignTokenTree = z.record(NestedDesignTokens)
+	const DesignTokenTree = z.record(z.string(), NestedDesignTokens)
 
 	return {
 		AliasToken,

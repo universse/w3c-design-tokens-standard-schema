@@ -17,7 +17,7 @@ pnpm add w3c-design-tokens-standard-schema @standard-schema/spec zod
 ```typescript
 import { createSchema } from 'w3c-design-tokens-standard-schema/zod'
 import type { StandardSchemaV1 } from '@standard-schema/spec'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 
 // example implementation of validate function
 async function validate<T extends StandardSchemaV1>(
