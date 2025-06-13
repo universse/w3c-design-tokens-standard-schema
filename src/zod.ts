@@ -4,9 +4,15 @@ import { z } from 'zod/v4'
 
 const AliasValue = z.templateLiteral(['{', z.string(), '}'])
 
+export type AliasValue = z.infer<typeof AliasValue>
+
 const NumberValue = z.number()
 
+export type NumberValue = z.infer<typeof NumberValue>
+
 const BooleanValue = z.boolean()
+
+export type BooleanValue = z.infer<typeof BooleanValue>
 
 const BaseColorValue = z.object({
 	alpha: NumberValue.gte(0).lte(1).optional(),
@@ -145,12 +151,18 @@ const ColorValue = z.discriminatedUnion('colorSpace', [
 	}),
 ])
 
+export type ColorValue = z.infer<typeof ColorValue>
+
 const DimensionValue = z.object({
 	value: NumberValue,
 	unit: z.enum(['px', 'rem']),
 })
 
+export type DimensionValue = z.infer<typeof DimensionValue>
+
 const FontFamilyValue = z.union([z.string(), z.array(z.string())])
+
+export type FontFamilyValue = z.infer<typeof FontFamilyValue>
 
 const FontWeightValue = z.union([
 	NumberValue.gte(1).lte(1000),
@@ -176,10 +188,14 @@ const FontWeightValue = z.union([
 	]),
 ])
 
+export type FontWeightValue = z.infer<typeof FontWeightValue>
+
 const DurationValue = z.object({
 	value: NumberValue,
 	unit: z.enum(['ms', 's']),
 })
+
+export type DurationValue = z.infer<typeof DurationValue>
 
 const CubicBezierValue = z.tuple([
 	NumberValue,
@@ -187,6 +203,8 @@ const CubicBezierValue = z.tuple([
 	NumberValue,
 	NumberValue,
 ])
+
+export type CubicBezierValue = z.infer<typeof CubicBezierValue>
 
 const StrokeStyleValue = z.union([
 	z.enum([
@@ -205,17 +223,23 @@ const StrokeStyleValue = z.union([
 	}),
 ])
 
+export type StrokeStyleValue = z.infer<typeof StrokeStyleValue>
+
 const BorderValue = z.object({
 	color: z.union([ColorValue, AliasValue]),
 	width: z.union([DimensionValue, AliasValue]),
 	style: z.union([StrokeStyleValue, AliasValue]),
 })
 
+export type BorderValue = z.infer<typeof BorderValue>
+
 const TransitionValue = z.object({
 	duration: z.union([DurationValue, AliasValue]),
 	delay: z.union([DurationValue, AliasValue]),
 	timingFunction: z.union([CubicBezierValue, AliasValue]),
 })
+
+export type TransitionValue = z.infer<typeof TransitionValue>
 
 const SingleShadowValue = z.object({
 	color: ColorValue,
@@ -226,7 +250,11 @@ const SingleShadowValue = z.object({
 	inset: BooleanValue.optional().default(false),
 })
 
+export type SingleShadowValue = z.infer<typeof SingleShadowValue>
+
 const ShadowValue = z.union([SingleShadowValue, z.array(SingleShadowValue)])
+
+export type ShadowValue = z.infer<typeof ShadowValue>
 
 const GradientValue = z.array(
 	z.object({
@@ -235,6 +263,8 @@ const GradientValue = z.array(
 	}),
 )
 
+export type GradientValue = z.infer<typeof GradientValue>
+
 const TypographyValue = z.object({
 	fontFamily: z.union([FontFamilyValue, AliasValue]),
 	fontSize: z.union([DimensionValue, AliasValue]),
@@ -242,6 +272,8 @@ const TypographyValue = z.object({
 	letterSpacing: z.union([DimensionValue, AliasValue]),
 	lineHeight: z.union([NumberValue, AliasValue]),
 })
+
+export type TypographyValue = z.infer<typeof TypographyValue>
 
 // Types
 
@@ -400,4 +432,10 @@ export function createSchema({
 		DesignToken,
 		DesignTokenTree,
 	}
+}
+
+export type Schema = {
+	[K in keyof ReturnType<typeof createSchema>]: z.infer<
+		ReturnType<typeof createSchema>[K]
+	>
 }

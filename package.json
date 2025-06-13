@@ -1,6 +1,6 @@
 {
 	"name": "w3c-design-tokens-standard-schema",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"description": "Standard Schema for W3C Design Tokens",
 	"keywords": [
 		"design tokens",
@@ -34,11 +34,11 @@
 		"@standard-schema/spec": "1.0.0",
 		"arktype": "2.1.20",
 		"prettier": "3.5.3",
-		"tsx": "4.19.4",
+		"tsx": "4.20.3",
 		"typescript": "5.8.3",
 		"valibot": "1.1.0",
-		"vitest": "3.1.4",
-		"zod": "3.25.7"
+		"vitest": "3.2.3",
+		"zod": "3.25.64"
 	},
 	"peerDependencies": {
 		"@standard-schema/spec": "1.0.0",
